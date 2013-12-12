@@ -1,0 +1,47 @@
+<head>
+  <title>meteor-game</title>
+</head>
+
+<body>
+  <table id="content">
+    <tr>
+      <td colspan="2" id="header">{{> header}}</td>
+    </tr>
+    <tr>
+      <td id="users">{{> users}}</td>
+      <td id="games">{{> games}}</td>
+    </tr>
+  </table>
+</body>
+
+<template name="header">
+  {{loginButtons}}
+
+  {{getRecord}}
+</template>
+
+<template name="users">
+  <ul>
+    {{#each users}}
+      <li><button value="{{_id}}">{{nameOf this}}</button></li>
+    {{/each}}
+  </ul>
+</template>
+
+
+<template name="games">
+  {{#each games}}
+    <div class="game-wrapper" id="game-{{_id}}">
+      {{#if isSolved board}}
+      Game over! Winner: {{getWinnerName this}}
+      {{else}}
+        {{#if isYourTurn this}}
+        It's your turn!!
+        {{else}}
+        Waiting on the other player...
+        {{/if}}
+        {{formatBoard this}}
+      {{/if}}
+    </div>
+  {{/each}}
+</template>
